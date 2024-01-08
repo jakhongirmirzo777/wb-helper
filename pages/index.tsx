@@ -31,11 +31,15 @@ export default function Home() {
   const [regionId, setRegionId] = useState<null | number>(null);
 
   const loadAdvertsData = useCallback(
-    (args: { input: string; region_id?: number | null }) => {
-      if (args.region_id) {
+    ({ input, region_id }: { input: string; region_id?: number | null }) => {
+      if (input && region_id) {
         loadAdverts({
-          input: args.input,
-          region_id: args.region_id,
+          input,
+          region_id,
+        });
+      } else if (input && !region_id) {
+        loadAdverts({
+          input,
         });
       }
     },
