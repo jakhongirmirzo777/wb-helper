@@ -25,8 +25,17 @@ const CatalogWrapper = styled.div`
   width: calc(100% / 3 - 10px);
 `;
 
+const ErrorMessage = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  color: var(--color-black);
+  font-weight: 500;
+`;
+
 export default function Home() {
-  const [loadAdverts, { isLoading }] = useLazyGetAdvertsQuery();
+  const [loadAdverts, { isLoading, error }] = useLazyGetAdvertsQuery();
   const [search, setSearch] = useState("");
   const [regionId, setRegionId] = useState<null | number>(null);
 
@@ -57,8 +66,10 @@ export default function Home() {
           loadAdvertsData={loadAdvertsData}
         />
       </SearchWrapper>
-      {isLoading ? (
+      {isLoading && !error ? (
         <Loading />
+      ) : !isLoading && error ? (
+        <ErrorMessage>Ничего не найдено</ErrorMessage>
       ) : (
         <ContentWrapper>
           <AdvertWrapper>
