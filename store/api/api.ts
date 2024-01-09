@@ -21,7 +21,7 @@ export const commonApi = createApi({
         if (input) params["input"] = input;
         if (region_id) params["region_id"] = region_id;
         return {
-          url: "/api/advert",
+          url: "/api/products",
           params: params,
         };
       },
